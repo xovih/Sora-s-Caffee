@@ -59,12 +59,16 @@ const TopNavLanding = (props: PropTypes) => {
         </NavbarContent>
       </Navbar>
       {isOpen && (
-        <div className="flex w-full flex-col items-center bg-white p-4 shadow-md md:hidden">
+        // <div className="flex w-full flex-col items-center bg-white p-4 shadow-md md:hidden">
+        <div className="fixed left-0 top-16 z-40 flex w-full flex-col items-center bg-white p-4 shadow-md md:hidden">
           {topNavItems.map((item, index) => (
             <TopNavButton
               key={index}
               label={item.label}
-              onPress={() => scrollToSection(item.path)}
+              onPress={() => {
+                scrollToSection(item.path);
+                setIsOpen(false);
+              }}
             />
           ))}
           <Button radius="none" className="w-full" onPress={onLogin}>
