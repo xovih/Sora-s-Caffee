@@ -13,10 +13,11 @@ import TopNavButton from "../../../ui/TopNavButton";
 
 interface PropTypes {
   brand: string;
+  onLogin: () => void;
 }
 
 const TopNavLanding = (props: PropTypes) => {
-  const { brand } = props;
+  const { brand, onLogin } = props;
 
   const isOpen = useLandingPageMenuStore((state) => state.isOpen);
   const setIsOpen = useLandingPageMenuStore((state) => state.setIsOpen);
@@ -42,7 +43,9 @@ const TopNavLanding = (props: PropTypes) => {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="hidden md:flex">
-            <Button radius="none">Login</Button>
+            <Button radius="none" onPress={onLogin}>
+              Login
+            </Button>
           </NavbarItem>
           <NavbarItem className="md:hidden">
             <Button
@@ -64,7 +67,7 @@ const TopNavLanding = (props: PropTypes) => {
               onPress={() => scrollToSection(item.path)}
             />
           ))}
-          <Button radius="none" className="w-full">
+          <Button radius="none" className="w-full" onPress={onLogin}>
             Login
           </Button>
         </div>

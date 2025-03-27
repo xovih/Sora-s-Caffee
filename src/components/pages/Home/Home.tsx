@@ -38,7 +38,9 @@ const Home = () => {
         <div className="mb-6 flex justify-center">
           <Input
             placeholder="Search menu..."
-            className="w-full max-w-md shadow-md"
+            size="lg"
+            color="warning"
+            className="w-full max-w-md text-lg"
           />
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
