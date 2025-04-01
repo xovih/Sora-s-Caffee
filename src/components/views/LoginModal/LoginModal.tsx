@@ -36,7 +36,6 @@ const LoginModal = (props: PropTypes) => {
 
   return (
     <Modal
-      aria-label="login-modal"
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       placement="center"

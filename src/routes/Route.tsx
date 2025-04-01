@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import Home from "../components/pages/Home";
-import Login from "../components/pages/Login";
+import AdminOrderPage from "../components/pages/Admin/AdminOrderPage";
 
 const routes: RouteObject[] = [
   {
@@ -8,8 +8,8 @@ const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/orders",
+    element: <AdminOrderPage />,
   },
 ];
 
