@@ -13,8 +13,6 @@ const Home = () => {
     handleSearch,
   } = useHome();
 
-  console.log(dataMenu);
-
   return (
     <LandingPageLayout>
       <main className="flex flex-col items-center px-4 py-20 text-center">
