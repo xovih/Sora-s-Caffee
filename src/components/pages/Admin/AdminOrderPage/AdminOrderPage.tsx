@@ -1,9 +1,15 @@
 import AdminPageLayout from "../../../layouts/AdminPageLayout";
+import ProductCart from "../../../ui/ProductCart/ProductCart";
+import ProductList from "./ProductList/ProductList";
 
 const AdminOrderPage = () => {
   return (
-    <AdminPageLayout>
-      <h1>Order Page</h1>
+    <AdminPageLayout title="Create Order">
+      {/* Cart (Mobile: Top, LG: Right) */}
+      <ProductCart />
+
+      {/* Menu List (LG: 2/3 Width) */}
+      <ProductList />
     </AdminPageLayout>
   );
 };

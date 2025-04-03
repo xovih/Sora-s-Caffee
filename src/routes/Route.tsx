@@ -8,7 +8,7 @@ const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/orders",
+    path: "/order-list",
     element: <AdminOrderPage />,
   },
 ];
