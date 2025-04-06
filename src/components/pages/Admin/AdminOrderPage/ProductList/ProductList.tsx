@@ -11,12 +11,32 @@ const products = [
 ];
 
 const ProductList = () => {
-  const { dataProduct, isLoadingProduct, handleSearch, setCategory } =
-    useProductList();
+  const {
+    dataProduct,
+    isLoadingProduct,
+
+    handleClearSearch,
+    handleSearch,
+
+    setCategory,
+
+    page,
+    handleChangePage,
+  } = useProductList();
+
+  const productData = dataProduct?.data ?? null;
+  const paging = dataProduct?.paging ?? {
+    total: 0,
+    page: 1,
+  };
 
   return (
     <div className="order-2 flex w-full flex-col lg:order-1 lg:w-2/3">
-      <ProductFilter handleSearch={handleSearch} setCategory={setCategory} />
+      <ProductFilter
+        handleSearch={handleSearch}
+        setCategory={setCategory}
+        handleClearSearch={handleClearSearch}
+      />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {isLoadingProduct &&
           products.map((product, index) => (
@@ -25,8 +45,8 @@ const ProductList = () => {
             </Skeleton>
           ))}
 
-        {dataProduct &&
-          dataProduct.map((item: IMenu) => (
+        {productData &&
+          productData.map((item: IMenu) => (
             <ProductCard
               key={item.id}
               id={item.id}
@@ -36,13 +56,17 @@ const ProductList = () => {
             />
           ))}
       </div>
-      <Pagination
-        isCompact
-        initialPage={1}
-        total={10}
-        className="mt-4"
-        classNames={{ cursor: "bg-yellow-950" }}
-      />
+      {paging.total > 1 && (
+        <Pagination
+          isCompact
+          initialPage={paging.page}
+          total={paging.total}
+          className="mt-4"
+          classNames={{ cursor: "bg-yellow-950" }}
+          page={page}
+          onChange={handleChangePage}
+        />
+      )}
     </div>
   );
 };

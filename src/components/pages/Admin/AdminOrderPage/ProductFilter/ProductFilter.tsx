@@ -5,11 +5,12 @@ import { ChangeEvent } from "react";
 
 interface PropTypes {
   handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleClearSearch: () => void;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductFilter = (props: PropTypes) => {
-  const { handleSearch, setCategory } = props;
+  const { handleSearch, setCategory, handleClearSearch } = props;
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
       <div className="mb-5 flex w-full flex-wrap justify-start space-x-3 lg:w-2/3">
@@ -30,6 +31,8 @@ const ProductFilter = (props: PropTypes) => {
           variant="bordered"
           className="mb-6"
           onChange={handleSearch}
+          isClearable
+          onClear={handleClearSearch}
         />
       </div>
     </div>
