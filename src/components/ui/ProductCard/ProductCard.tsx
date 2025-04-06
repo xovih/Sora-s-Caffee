@@ -25,7 +25,7 @@ const ProductCard = (props: PropTypes) => {
           </div>
           <Button
             onPress={() => {}}
-            className="to-black-900 my-1 bg-gradient-to-tr from-yellow-950 font-semibold text-white transition-colors hover:bg-gradient-to-tr"
+            className="to-black-900 my-1 bg-yellow-950 font-semibold text-white transition-colors hover:bg-yellow-700"
             isIconOnly
           >
             <ShoppingCart />

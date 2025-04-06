@@ -1,4 +1,4 @@
-import { Skeleton } from "@heroui/react";
+import { Pagination, Skeleton } from "@heroui/react";
 import ProductCard from "../../../../ui/ProductCard";
 import ProductFilter from "../ProductFilter/ProductFilter";
 import useProductList from "./useProductList";
@@ -20,15 +20,15 @@ const ProductList = () => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {isLoadingProduct &&
           products.map((product, index) => (
-            <Skeleton isLoaded={!isLoadingProduct}>
+            <Skeleton key={index} isLoaded={!isLoadingProduct}>
               <ProductCard key={index} {...product} id={`${index}`} />
             </Skeleton>
           ))}
 
         {dataProduct &&
-          dataProduct.map((item: IMenu, index: number) => (
+          dataProduct.map((item: IMenu) => (
             <ProductCard
-              key={index}
+              key={item.id}
               id={item.id}
               image={item.image_url}
               name={item.name}
@@ -36,6 +36,13 @@ const ProductList = () => {
             />
           ))}
       </div>
+      <Pagination
+        isCompact
+        initialPage={1}
+        total={10}
+        className="mt-4"
+        classNames={{ cursor: "bg-yellow-950" }}
+      />
     </div>
   );
 };
