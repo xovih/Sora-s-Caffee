@@ -1,24 +1,27 @@
-import { useDebounce } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "@tanstack/react-query";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useNavigation } from "react-router-dom";
 import menuService from "../../../../../services/menu.service";
+import useFilterStore from "../../../../stores/FilterStore";
 
 const useProductList = () => {
   const navigation = useNavigation();
 
-  const [search, setSearch] = useState("");
-  const [searchValue] = useDebounce(search, 500);
-
-  const [category, setCategory] = useState("");
-
-  const [page, setPage] = useState(1);
+  const catSelected = useFilterStore((state) => state.catSelected);
+  const setCatSelected = useFilterStore((state) => state.setCatSelected);
+  const currentPage = useFilterStore((state) => state.currentPage);
+  const setPage = useFilterStore((state) => state.setPage);
+  const search = useFilterStore((state) => state.currentSearch);
+  const setSearch = useFilterStore((state) => state.setSearch);
+  const debouncedSearch = useDebouncedCallback((value) => {
+    setSearch(value);
+  }, 500);
 
   const isReady = navigation.state === "idle";
 
   const getMenus = async () => {
-    let params = `search=${searchValue}&pageSize=6&page=1`;
-    if (category !== "") params = `${params}&category=${category}`;
+    const params = `pageSize=6&page=${currentPage}&category=${catSelected}&search=${search}`;
     const res = await menuService.list(params);
     return {
       data: res.data.data,
@@ -32,21 +35,25 @@ const useProductList = () => {
     isRefetching: isRefetchingProduct,
     refetch: refetchProduct,
   } = useQuery({
-    queryKey: ["category", searchValue, category, page],
+    queryKey: ["category", search, catSelected, currentPage],
     queryFn: getMenus,
-    enabled: isReady || !!searchValue || !!category || !!page,
+    enabled: isReady || !!search || !!catSelected || !!currentPage,
   });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    debouncedSearch(e.target.value);
   };
 
   const handleClearSearch = () => {
-    setSearch("");
+    debouncedSearch("");
   };
 
   const handleChangePage = (p: number) => {
     setPage(p);
+  };
+
+  const handleChangeCategory = (cat: string) => {
+    setCatSelected(cat);
   };
 
   return {
@@ -57,9 +64,11 @@ const useProductList = () => {
 
     handleClearSearch,
     handleSearch,
-    setCategory,
 
-    page,
+    catSelected,
+    handleChangeCategory,
+
+    currentPage,
     handleChangePage,
   };
 };

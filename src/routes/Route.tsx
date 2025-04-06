@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import Home from "../components/pages/Home";
 import AdminOrderPage from "../components/pages/Admin/AdminOrderPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes: RouteObject[] = [
   {
@@ -9,7 +10,11 @@ const routes: RouteObject[] = [
   },
   {
     path: "/order-list",
-    element: <AdminOrderPage />,
+    element: (
+      <ProtectedRoute>
+        <AdminOrderPage />
+      </ProtectedRoute>
+    ),
   },
 ];
 

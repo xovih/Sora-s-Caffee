@@ -1,13 +1,22 @@
 import { create } from "zustand";
 
 interface IButtonFilterState {
-  isFiltered: string;
-  setIsFiltered: (state: string) => void;
+  catSelected: string;
+  currentPage: number;
+  currentSearch: string;
+  setCatSelected: (state: string) => void;
+  setPage: (state: number) => void;
+  setSearch: (state: string) => void;
 }
 
 const useFilterStore = create<IButtonFilterState>((set) => ({
-  isFiltered: "",
-  setIsFiltered: (state) => set({ isFiltered: state }),
+  catSelected: "",
+  currentPage: 1,
+  currentSearch: "",
+  setCatSelected: (state) =>
+    set({ catSelected: state, currentPage: 1, currentSearch: "" }),
+  setPage: (state) => set({ currentPage: state, currentSearch: "" }),
+  setSearch: (state) => set({ currentSearch: state, currentPage: 1 }),
 }));
 
 export default useFilterStore;

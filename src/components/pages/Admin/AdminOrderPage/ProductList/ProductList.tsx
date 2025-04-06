@@ -18,15 +18,13 @@ const ProductList = () => {
     handleClearSearch,
     handleSearch,
 
-    setCategory,
-
-    page,
+    currentPage,
     handleChangePage,
   } = useProductList();
 
   const productData = dataProduct?.data ?? null;
   const paging = dataProduct?.paging ?? {
-    total: 0,
+    totalPages: 0,
     page: 1,
   };
 
@@ -34,7 +32,6 @@ const ProductList = () => {
     <div className="order-2 flex w-full flex-col lg:order-1 lg:w-2/3">
       <ProductFilter
         handleSearch={handleSearch}
-        setCategory={setCategory}
         handleClearSearch={handleClearSearch}
       />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -56,16 +53,18 @@ const ProductList = () => {
             />
           ))}
       </div>
-      {paging.total > 1 && (
-        <Pagination
-          isCompact
-          initialPage={paging.page}
-          total={paging.total}
-          className="mt-4"
-          classNames={{ cursor: "bg-yellow-950" }}
-          page={page}
-          onChange={handleChangePage}
-        />
+      {paging.totalPages > 1 && (
+        <Skeleton isLoaded={productData}>
+          <Pagination
+            isCompact
+            initialPage={paging.page}
+            total={paging.totalPages}
+            className="mt-4"
+            classNames={{ cursor: "bg-yellow-950" }}
+            page={currentPage}
+            onChange={handleChangePage}
+          />
+        </Skeleton>
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ReactNode, useEffect } from "react";
 import TopNavLanding from "./TopNavLanding/TopNavLanding";
 import FooterLanding from "./FooterLanding";

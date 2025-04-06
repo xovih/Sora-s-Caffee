@@ -6,20 +6,15 @@ import { ChangeEvent } from "react";
 interface PropTypes {
   handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClearSearch: () => void;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductFilter = (props: PropTypes) => {
-  const { handleSearch, setCategory, handleClearSearch } = props;
+  const { handleSearch, handleClearSearch } = props;
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
       <div className="mb-5 flex w-full flex-wrap justify-start space-x-3 lg:w-2/3">
         {category.map((category, index) => (
-          <ProductFilterButton
-            key={index}
-            category={category.category}
-            setCategory={setCategory}
-          >
+          <ProductFilterButton key={index} category={category.category}>
             <p>{category.label}</p>
           </ProductFilterButton>
         ))}

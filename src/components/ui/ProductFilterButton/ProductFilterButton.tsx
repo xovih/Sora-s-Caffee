@@ -1,20 +1,19 @@
 import { Button } from "@heroui/react";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { cn } from "../../../utils/cn";
 import useFilterStore from "../../stores/FilterStore";
 interface PropTypes {
   category: string;
   children: ReactNode;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductFilterButton = (props: PropTypes) => {
-  const { category, children, setCategory } = props;
+  const { category, children } = props;
 
-  const isFiltered = useFilterStore((state) => state.isFiltered);
-  const setIsFiltered = useFilterStore((state) => state.setIsFiltered);
+  const catSelected = useFilterStore((state) => state.catSelected);
+  const setCatSelected = useFilterStore((state) => state.setCatSelected);
 
-  const isActive = category === isFiltered;
+  const isActive = category === catSelected;
 
   const variant = isActive ? "flat" : "bordered";
 
@@ -28,10 +27,7 @@ const ProductFilterButton = (props: PropTypes) => {
         },
       )}
       variant={variant}
-      onPress={() => {
-        setIsFiltered(category);
-        setCategory(category);
-      }}
+      onPress={() => setCatSelected(category)}
     >
       {children}
     </Button>

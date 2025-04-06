@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from "yup";
 import { ILogin } from "../../../types/auth";
 import authService from "../../../services/auth.service";
