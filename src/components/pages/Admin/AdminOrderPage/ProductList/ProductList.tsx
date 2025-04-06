@@ -11,16 +11,16 @@ const products = [
 ];
 
 const ProductList = () => {
-  const { dataProduct, isLoadingProduct } = useProductList();
+  const { dataProduct, isLoadingProduct, handleSearch, setCategory } =
+    useProductList();
 
   return (
     <div className="order-2 flex w-full flex-col lg:order-1 lg:w-2/3">
-      <ProductFilter />
+      <ProductFilter handleSearch={handleSearch} setCategory={setCategory} />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {isLoadingProduct &&
           products.map((product, index) => (
             <Skeleton isLoaded={!isLoadingProduct}>
-              {" "}
               <ProductCard key={index} {...product} id={`${index}`} />
             </Skeleton>
           ))}

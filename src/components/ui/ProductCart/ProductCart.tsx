@@ -12,7 +12,7 @@ const ProductCart = () => {
       </div>
       <Button
         size="lg"
-        className="to-black-900 my-1 mt-3 mt-4 flex w-full bg-gradient-to-tr from-yellow-950 font-semibold text-black text-white transition-colors hover:bg-gradient-to-tr"
+        className="my-1 mt-4 flex w-full bg-yellow-950 font-semibold text-white transition-colors"
       >
         Checkout
       </Button>

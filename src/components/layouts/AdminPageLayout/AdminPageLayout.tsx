@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ReactNode, useEffect } from "react";
 import useToasterStore, { defaultToaster } from "../../stores/ToasterStore";
 import Toaster from "../../ui/Toaster";

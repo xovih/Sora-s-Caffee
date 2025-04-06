@@ -15,7 +15,8 @@ const useProductList = () => {
   const isReady = navigation.state === "idle";
 
   const getMenus = async () => {
-    const params = `search=${searchValue}&pageSize=6&page=1`;
+    let params = `search=${searchValue}&pageSize=6&page=1`;
+    if (category !== "") params = `${params}&category=${category}`;
     const res = await menuService.list(params);
     return res.data.data;
   };
@@ -26,9 +27,9 @@ const useProductList = () => {
     isRefetching: isRefetchingProduct,
     refetch: refetchProduct,
   } = useQuery({
-    queryKey: ["Home", searchValue, category],
+    queryKey: ["category", searchValue, category],
     queryFn: getMenus,
-    enabled: isReady || !!searchValue,
+    enabled: isReady || !!searchValue || !!category,
   });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +40,6 @@ const useProductList = () => {
     setSearch("");
   };
 
-  const handleChangeCategory = (val: string) => {
-    setSearch("");
-    setCategory(val);
-  };
-
   return {
     dataProduct,
     isLoadingProduct,
@@ -52,7 +48,7 @@ const useProductList = () => {
 
     handleClearSearch,
     handleSearch,
-    handleChangeCategory,
+    setCategory,
   };
 };
 

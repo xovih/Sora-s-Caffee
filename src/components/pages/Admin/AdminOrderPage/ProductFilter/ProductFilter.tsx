@@ -1,14 +1,37 @@
+import { Input } from "@heroui/react";
 import ProductFilterButton from "../../../../ui/ProductFilterButton";
 import { category } from "./ProductFilter.contant";
+import { ChangeEvent } from "react";
 
-const ProductFilter = () => {
+interface PropTypes {
+  handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProductFilter = (props: PropTypes) => {
+  const { handleSearch, setCategory } = props;
   return (
-    <div className="mb-5 flex flex-wrap justify-start space-x-3">
-      {category.map((category, index) => (
-        <ProductFilterButton key={index} category={category.category}>
-          <p>{category.label}</p>
-        </ProductFilterButton>
-      ))}
+    <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="mb-5 flex w-full flex-wrap justify-start space-x-3 lg:w-2/3">
+        {category.map((category, index) => (
+          <ProductFilterButton
+            key={index}
+            category={category.category}
+            setCategory={setCategory}
+          >
+            <p>{category.label}</p>
+          </ProductFilterButton>
+        ))}
+      </div>
+      <div className="w-full lg:w-1/3">
+        <Input
+          type="text"
+          label="search product by name"
+          variant="bordered"
+          className="mb-6"
+          onChange={handleSearch}
+        />
+      </div>
     </div>
   );
 };
