@@ -5,8 +5,8 @@ const ProductFilter = () => {
   return (
     <div className="mb-5 flex flex-wrap justify-start space-x-3">
       {category.map((category, index) => (
-        <ProductFilterButton key={index} category={category}>
-          {category}
+        <ProductFilterButton key={index} category={category.category}>
+          <p>{category.label}</p>
         </ProductFilterButton>
       ))}
     </div>

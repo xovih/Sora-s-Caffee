@@ -3,8 +3,9 @@ import { ShoppingCart } from "lucide-react";
 
 type PropTypes = {
   name: string;
-  price: string;
+  price: number;
   image: string;
+  id: string;
 };
 
 const ProductCard = (props: PropTypes) => {
@@ -20,11 +21,11 @@ const ProductCard = (props: PropTypes) => {
         <div className="mt-2 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold">{name}</h2>
-            <p className="text-gray-500">£{price}</p>
+            <p className="text-gray-500">${price}</p>
           </div>
           <Button
             onPress={() => {}}
-            className="to-black-900 my-1 bg-gradient-to-tr from-yellow-950 font-semibold text-black text-white transition-colors hover:bg-gradient-to-tr"
+            className="to-black-900 my-1 bg-gradient-to-tr from-yellow-950 font-semibold text-white transition-colors hover:bg-gradient-to-tr"
             isIconOnly
           >
             <ShoppingCart />

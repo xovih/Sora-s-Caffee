@@ -17,9 +17,9 @@ const ProductFilterButton = (props: PropTypes) => {
   return (
     <Button
       className={cn(
-        "to-black-900 my-1 from-yellow-950 font-semibold text-black transition-colors hover:bg-gradient-to-tr hover:text-white lg:my-2",
+        "my-1 font-semibold text-black transition-colors hover:bg-yellow-950 hover:text-white lg:my-2",
         {
-          "to-black-900 hover:to-black-500 bg-gradient-to-tr from-yellow-950 text-black hover:from-yellow-900":
+          "hover:bg-black-500 hover:text-black-300 bg-yellow-950 text-white":
             isActive,
         },
       )}

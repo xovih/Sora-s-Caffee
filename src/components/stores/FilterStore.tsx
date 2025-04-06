@@ -7,7 +7,7 @@ interface IButtonFilterState {
 
 const useFilterStore = create<IButtonFilterState>((set) => ({
   isFiltered: "",
-  setIsFiltered: (state: string) => set({ isFiltered: state }),
+  setIsFiltered: (state) => set({ isFiltered: state }),
 }));
 
 export default useFilterStore;
