@@ -1,13 +1,15 @@
 interface ICartItem {
   menuItemId: string;
   quantity: number;
-  notes: string;
+  notes?: string;
+  price?: number;
+  name?: string;
 }
 
 interface IOrder {
   customerName: string;
   tableNumber: number;
-  cart: ICartItem[];
+  cart?: ICartItem[];
 }
 
 export type { ICartItem, IOrder };

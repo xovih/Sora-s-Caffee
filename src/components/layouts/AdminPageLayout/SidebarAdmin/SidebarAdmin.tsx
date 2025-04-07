@@ -1,10 +1,12 @@
 import { LogOut } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sidebarMenu } from "./Sidebar.constant";
 import { cn } from "../../../../utils/cn";
+import { removeLocalStorage } from "../../../../utils/storage";
 
 const SidebarAdmin = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   return (
     <div className="relative z-50 flex h-screen w-full max-w-20 translate-x-0 flex-col items-center justify-between bg-gray-100 py-5 transition-all">
       <div className="py-6">
@@ -35,6 +37,10 @@ const SidebarAdmin = () => {
       </div>
       <button
         className={`text-red flex h-12 w-12 items-center justify-center rounded-full bg-white text-red-700 transition-colors hover:bg-red-700 hover:text-white`}
+        onClick={() => {
+          removeLocalStorage("auth");
+          navigate("/");
+        }}
       >
         <LogOut />
       </button>

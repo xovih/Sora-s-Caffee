@@ -39,7 +39,7 @@ const Home = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {isLoadingMenu &&
             menuItems.map((item, index) => (
-              <Skeleton isLoaded={!isLoadingMenu}>
+              <Skeleton isLoaded={!isLoadingMenu} key={index}>
                 <div key={index} className="rounded-lg bg-white p-4 shadow-lg">
                   <img
                     src={item.image}

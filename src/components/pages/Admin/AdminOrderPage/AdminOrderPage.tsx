@@ -1,5 +1,5 @@
 import AdminPageLayout from "../../../layouts/AdminPageLayout";
-import ProductCart from "../../../ui/ProductCart/ProductCart";
+import ProductCart from "./ProductCart/ProductCart";
 import ProductList from "./ProductList/ProductList";
 
 const AdminOrderPage = () => {

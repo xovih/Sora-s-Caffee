@@ -1,5 +1,6 @@
 import { Button, Card, CardBody } from "@heroui/react";
 import { ShoppingCart } from "lucide-react";
+import useCartStore from "../../stores/CartStore";
 
 type PropTypes = {
   name: string;
@@ -9,7 +10,10 @@ type PropTypes = {
 };
 
 const ProductCard = (props: PropTypes) => {
-  const { name, price, image } = props;
+  const { name, price, image, id } = props;
+
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <Card shadow="sm" className="">
       <CardBody>
@@ -24,7 +28,13 @@ const ProductCard = (props: PropTypes) => {
             <p className="text-gray-500">${price}</p>
           </div>
           <Button
-            onPress={() => {}}
+            onPress={() => {
+              addToCart({
+                menuItemId: id,
+                quantity: 1,
+                name,
+              });
+            }}
             className="to-black-900 my-1 bg-yellow-950 font-semibold text-white transition-colors hover:bg-yellow-700"
             isIconOnly
           >
