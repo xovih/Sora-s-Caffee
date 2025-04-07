@@ -55,7 +55,7 @@ const useLoginModal = () => {
       const token = data.token;
       setLocalStorage("auth", token);
       reset();
-      navigate("/orders");
+      navigate("/order-list");
     },
   });
 
