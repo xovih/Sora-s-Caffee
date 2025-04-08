@@ -1,6 +1,8 @@
 interface IReview {
-  menuItemId: string;
-  reviewerName: string;
+  id: string;
+  menuItemId?: string;
+  reviewerName?: string;
+  reviewer_name?: string;
   rating: number;
   comment: string;
 }

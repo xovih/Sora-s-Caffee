@@ -4,6 +4,7 @@ import AdminOrderPage from "../components/pages/Admin/AdminOrderPage";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderListPage from "../components/pages/Admin/OrderListPage/OrderListPage";
 import OrderDetailPage from "../components/pages/Admin/OrderDetailPage";
+import ReviewListPage from "../components/pages/Admin/ReviewListPage";
 
 const routes: RouteObject[] = [
   {
@@ -31,6 +32,14 @@ const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <AdminOrderPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/reviews",
+    element: (
+      <ProtectedRoute>
+        <ReviewListPage />
       </ProtectedRoute>
     ),
   },
