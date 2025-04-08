@@ -1,30 +1,32 @@
 import { useNavigation } from "react-router-dom";
-import useOrderStore from "../../../stores/OrderStore";
 import { useDebouncedCallback } from "use-debounce";
-import { SEACRH_DELAY } from "../../../../constants/list";
-import orderService from "../../../../services/order.service";
 import { ChangeEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
+import useOrderStore from "../../stores/OrderStore";
+import { SEACRH_DELAY } from "../../../constants/list";
+import orderService from "../../../services/order.service";
 
 const useOrderList = () => {
   const navigation = useNavigation();
   const isReady = navigation.state === "idle";
 
-  const {
-    currentLimit,
-    currentPage,
-    currentSearch,
-    currentStatus,
-    setPage,
-    setSearch,
-  } = useOrderStore((state) => ({
-    currentLimit: state.currentLimit,
-    currentPage: state.currentPage,
-    currentSearch: state.currentSearch,
-    currentStatus: state.currentStatus,
-    setPage: state.setPage,
-    setSearch: state.setSearch,
-  }));
+  const currentLimit = useOrderStore((state) => state.currentLimit);
+  const setLimit = useOrderStore((state) => state.setLimit);
+
+  const currentPage = useOrderStore((state) => state.currentPage);
+  const setPage = useOrderStore((state) => state.setPage);
+
+  const currentSearch = useOrderStore((state) => state.currentSearch);
+  const setSearch = useOrderStore((state) => state.setSearch);
+
+  const currentStatus = useOrderStore((state) => state.currentStatus);
+  const setStatus = useOrderStore((state) => state.setStatus);
+
+  const handleChangeLimit = (e: ChangeEvent<HTMLSelectElement>) => {
+    setLimit(Number(e.target.value));
+  };
+
+  const handleChangePage = (p: number) => setPage(p);
 
   const debouncedSearch = useDebouncedCallback((value) => {
     setSearch(value);
@@ -35,8 +37,11 @@ const useOrderList = () => {
 
   const handleClearSearch = () => debouncedSearch("");
 
+  const handleFilterStatus = (e: ChangeEvent<HTMLSelectElement>) =>
+    setStatus(e.target.value);
+
   const getOrderList = async () => {
-    const params = `pageSize=${currentLimit}&page=${currentPage}&status=${currentStatus}&searc=${currentSearch}`;
+    const params = `pageSize=${currentLimit}&page=${currentPage}&status=${currentStatus}&search=${currentSearch}`;
     const res = await orderService.list(params);
 
     return {
@@ -63,6 +68,16 @@ const useOrderList = () => {
   });
 
   return {
+    currentLimit,
+    handleChangeLimit,
+
+    currentPage,
+    handleChangePage,
+
+    currentStatus,
+    handleFilterStatus,
+
+    currentSearch,
     handleClearSearch,
     handleSearch,
 

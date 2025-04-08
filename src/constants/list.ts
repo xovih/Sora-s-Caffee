@@ -4,10 +4,16 @@ const LIMIT_LIST = [
   { label: "16", value: "16" },
 ];
 
+const STATUS_LIST = [
+  { label: "All Status", value: "" },
+  { label: "Completed", value: "COMPLETED" },
+  { label: "Processing", value: "PROCESSING" },
+];
+
 const LIMIT_DEFAULT = LIMIT_LIST[0].value;
 
 const PAGE_DEFAULT = 1;
 
 const SEACRH_DELAY = 500;
 
-export { LIMIT_LIST, LIMIT_DEFAULT, PAGE_DEFAULT, SEACRH_DELAY };
+export { LIMIT_LIST, LIMIT_DEFAULT, PAGE_DEFAULT, SEACRH_DELAY, STATUS_LIST };

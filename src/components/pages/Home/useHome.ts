@@ -3,6 +3,7 @@ import menuService from "../../../services/menu.service";
 import { useQuery } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { useNavigation } from "react-router-dom";
+import { removeLocalStorage } from "../../../utils/storage";
 
 const useHome = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +15,11 @@ const useHome = () => {
   const getMenus = async () => {
     const params = `search=${searchValue}&pageSize=6&page=1`;
     const res = await menuService.list(params);
+    if (res.status === 401) {
+      removeLocalStorage("auth");
+      const retry = await menuService.list(params);
+      return retry.data.data;
+    }
     return res.data.data;
   };
 

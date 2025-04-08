@@ -5,11 +5,11 @@ interface IOrderStore {
   currentLimit: number;
   currentPage: number;
   currentSearch: string;
-  currentStatus: "PROCESSING" | "COMPLETED" | "";
+  currentStatus: string | "PROCESSING" | "COMPLETED" | "";
   setLimit: (state: number) => void;
   setPage: (state: number) => void;
   setSearch: (state: string) => void;
-  setStatus: (state: "PROCESSING" | "COMPLETED" | "") => void;
+  setStatus: (state: string | "PROCESSING" | "COMPLETED" | "") => void;
 }
 
 const useOrderStore = create<IOrderStore>((set) => ({

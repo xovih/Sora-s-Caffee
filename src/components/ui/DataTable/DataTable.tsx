@@ -8,20 +8,16 @@ import {
   TableRow,
 } from "@heroui/react";
 import { cn } from "../../../utils/cn";
-import { ChangeEvent, Key, ReactNode } from "react";
+import { Key, ReactNode } from "react";
 
 interface PropTypes {
   columns: Record<string, unknown>[];
   data: Record<string, unknown>[];
   emptyContent: string;
   isLoading?: boolean;
-  limit: string;
-  totalPages: number;
 
-  onChangeLimit: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onChangePage: (p: number) => void;
-  onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-  onClearSearch: () => void;
+  BottomContent: ReactNode;
+  TopContent: ReactNode;
 
   renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
 }
@@ -32,13 +28,9 @@ const DataTable = (props: PropTypes) => {
     data,
     emptyContent,
     isLoading,
-    limit,
-    totalPages,
 
-    onChangeLimit,
-    onChangePage,
-    onChangeSearch,
-    onClearSearch,
+    BottomContent,
+    TopContent,
 
     renderCell,
   } = props;
@@ -59,7 +51,14 @@ const DataTable = (props: PropTypes) => {
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid as Key}>
-            {column.name as string}
+            <div
+              className={cn("text-bold text-md px-4 py-2", {
+                "flex items-center justify-center":
+                  column.uid !== "customer_name",
+              })}
+            >
+              {column.name as string}
+            </div>
           </TableColumn>
         )}
       </TableHeader>
@@ -77,7 +76,26 @@ const DataTable = (props: PropTypes) => {
         {(item) => (
           <TableRow key={item.id as Key} aria-labelledby="row">
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell
+                className={cn(
+                  {
+                    "w-[60px]":
+                      columnKey === "actions" || columnKey === "table_number",
+                  },
+                  {
+                    "w-2": columnKey === "no",
+                  },
+                )}
+              >
+                <div
+                  className={cn("text-md px-4 py-2", {
+                    "flex items-center justify-center":
+                      columnKey !== "customer_name",
+                  })}
+                >
+                  {renderCell(item, columnKey)}
+                </div>
+              </TableCell>
             )}
           </TableRow>
         )}

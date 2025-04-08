@@ -1,9 +1,10 @@
 import AdminPageLayout from "../../../layouts/AdminPageLayout";
+import OrderList from "../../../views/OrderList";
 
 const OrderListPage = () => {
   return (
     <AdminPageLayout title="Order List">
-      <p>order list</p>
+      <OrderList />
     </AdminPageLayout>
   );
 };
