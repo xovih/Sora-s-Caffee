@@ -6,6 +6,7 @@ import useToasterStore, { defaultToaster } from "../../stores/ToasterStore";
 import Toaster from "../../ui/Toaster";
 import { useDisclosure } from "@heroui/react";
 import LoginModal from "../../views/LoginModal/LoginModal";
+import ReviewModal from "../../views/ReviewModal";
 
 interface PropTypes {
   children: ReactNode;
@@ -37,6 +38,7 @@ const LandingPageLayout = (props: PropTypes) => {
         <Toaster type={toaster.type} message={toaster.message} />
       )}
       <LoginModal {...loginModal} />
+      <ReviewModal />
     </div>
   );
 };

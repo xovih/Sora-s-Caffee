@@ -88,7 +88,7 @@ const LoginModal = (props: PropTypes) => {
               onPress={onClose}
               disabled={isPendingLogin}
             >
-              Batal
+              Cancel
             </Button>
             <Button
               className="bg-yellow-950 text-white"
