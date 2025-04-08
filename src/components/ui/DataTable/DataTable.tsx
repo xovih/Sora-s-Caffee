@@ -54,7 +54,7 @@ const DataTable = (props: PropTypes) => {
             <div
               className={cn("text-bold text-md px-4 py-2", {
                 "flex items-center justify-center":
-                  column.uid !== "customer_name",
+                  column.uid !== "customer_name" && column.uid !== "actions",
               })}
             >
               {column.name as string}
@@ -69,7 +69,7 @@ const DataTable = (props: PropTypes) => {
         items={data}
         loadingContent={
           <div className="flex h-full w-full items-center justify-center bg-foreground-700/30 backdrop-blur-sm">
-            <Spinner className="text-yellow-950" />
+            <Spinner color="warning" />
           </div>
         }
       >
@@ -90,7 +90,7 @@ const DataTable = (props: PropTypes) => {
                 <div
                   className={cn("text-md px-4 py-2", {
                     "flex items-center justify-center":
-                      columnKey !== "customer_name",
+                      columnKey !== "customer_name" && columnKey !== "actions",
                   })}
                 >
                   {renderCell(item, columnKey)}

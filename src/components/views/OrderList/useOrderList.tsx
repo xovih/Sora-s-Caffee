@@ -1,14 +1,17 @@
 import { useNavigation } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { ChangeEvent } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useOrderStore from "../../stores/OrderStore";
 import { SEACRH_DELAY } from "../../../constants/list";
 import orderService from "../../../services/order.service";
+import useToasterStore from "../../stores/ToasterStore";
 
 const useOrderList = () => {
   const navigation = useNavigation();
   const isReady = navigation.state === "idle";
+
+  const setToaster = useToasterStore((state) => state.setToaster);
 
   const currentLimit = useOrderStore((state) => state.currentLimit);
   const setLimit = useOrderStore((state) => state.setLimit);
@@ -67,6 +70,31 @@ const useOrderList = () => {
     enabled: isReady || !!currentPage || !!currentLimit || !!currentStatus,
   });
 
+  const changeOrderStatus = async (id: string) => {
+    const res = await orderService.changeStatus(id);
+    return res.data.data;
+  };
+
+  const {
+    mutate: mutateChangeStatus,
+    isPending: isPendingMutateChangeStatus,
+    isSuccess: isSuccessChangeStatus,
+  } = useMutation({
+    mutationFn: changeOrderStatus,
+    onError: (error) => {
+      setToaster({
+        type: "error",
+        message: error.message,
+      });
+    },
+    onSuccess: () => {
+      setToaster({
+        type: "success",
+        message: "Order Marked as Completed.",
+      });
+    },
+  });
+
   return {
     currentLimit,
     handleChangeLimit,
@@ -85,6 +113,10 @@ const useOrderList = () => {
     isLoadingOrders,
     isRefetchingOrders,
     refetchOrders,
+
+    mutateChangeStatus,
+    isPendingMutateChangeStatus,
+    isSuccessChangeStatus,
   };
 };
 

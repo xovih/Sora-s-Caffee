@@ -1,14 +1,14 @@
-import { Key, ReactNode, useCallback, useMemo } from "react";
+import { Key, ReactNode, useCallback, useEffect, useMemo } from "react";
 import useOrderList from "./useOrderList";
 import {
   Button,
-  Chip,
   Input,
   Pagination,
   Select,
   SelectItem,
+  Spinner,
 } from "@heroui/react";
-import { Search } from "lucide-react";
+import { CircleCheck, Search } from "lucide-react";
 import { LIMIT_LIST, STATUS_LIST } from "../../../constants/list";
 import { useNavigate } from "react-router-dom";
 import COLUMN_LIST_ORDERS from "./OrderList.constant";
@@ -35,8 +35,13 @@ const OrderList = () => {
     handleSearch,
 
     dataOrders,
+    refetchOrders,
     isLoadingOrders,
     isRefetchingOrders,
+
+    mutateChangeStatus,
+    isPendingMutateChangeStatus,
+    isSuccessChangeStatus,
   } = useOrderList();
 
   const numberedData = useMemo(() => {
@@ -132,31 +137,45 @@ const OrderList = () => {
 
         case "status":
           return (
-            <Chip
+            <div
               className={cn(
-                "border border-yellow-950 bg-white p-2 capitalize text-yellow-950",
+                "flex items-center justify-center gap-2 rounded-full border border-warning bg-white px-4 py-2 capitalize text-black",
                 {
-                  "bg-yellow-950 text-white": item.status === "COMPLETED",
+                  "border-success": item.status === "COMPLETED",
                 },
               )}
-              size="sm"
-              variant="flat"
             >
+              {item.status === "PROCESSING" ? (
+                <Spinner size="sm" color="warning" />
+              ) : (
+                <CircleCheck className="text-3xl text-success-500" />
+              )}
               {`${item.status}`}
-            </Chip>
+            </div>
           );
 
         case "actions":
           return (
-            <div className="flex items-center justify-center">
+            <div className="flex flex-row space-x-2">
+              <Button
+                type="button"
+                size="md"
+                isIconOnly
+                className="rounded-full border border-yellow-950 bg-yellow-950/20 text-black hover:bg-yellow-950 hover:text-white"
+                onPress={() => {}}
+              >
+                <Search />
+              </Button>
               {item.status === "PROCESSING" && (
                 <Button
                   type="button"
-                  size="sm"
+                  size="md"
                   className="rounded-full bg-yellow-950 text-white"
-                  onPress={() => {}}
+                  onPress={() => {
+                    mutateChangeStatus(item.id as string);
+                  }}
                 >
-                  Set as Completed
+                  Mark Complete
                 </Button>
               )}
             </div>
@@ -169,12 +188,20 @@ const OrderList = () => {
     [currentLimit, currentPage, currentStatus, currentSearch],
   );
 
+  useEffect(() => {
+    if (isSuccessChangeStatus) {
+      refetchOrders();
+    }
+  }, [isSuccessChangeStatus]);
+
   return (
     <DataTable
       columns={COLUMN_LIST_ORDERS}
       data={numberedData || []}
       emptyContent="Orders Data is empty"
-      isLoading={isLoadingOrders || isRefetchingOrders}
+      isLoading={
+        isLoadingOrders || isRefetchingOrders || isPendingMutateChangeStatus
+      }
       renderCell={renderCell}
       BottomContent={BottomContent}
       TopContent={TopContent}
