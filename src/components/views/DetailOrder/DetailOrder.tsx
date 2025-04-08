@@ -1,11 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Spinner } from "@heroui/react";
 import useDetailOrder from "./useDetailOrder";
 import { ICart } from "../../../types/orders";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { removeLocalStorage } from "../../../utils/storage";
 
 const DetailOrder = () => {
-  const { dataOrderDetail: order, isLoadingDetailOrder } = useDetailOrder();
+  const {
+    dataOrderDetail: order,
+    isLoadingDetailOrder,
+    errorDetailOrder,
+  } = useDetailOrder();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (errorDetailOrder?.message === "Unauthorized") {
+      removeLocalStorage("auth");
+      navigate("/");
+    }
+  }, [errorDetailOrder]);
 
   if (isLoadingDetailOrder)
     return (

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigation } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { ChangeEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -7,10 +7,13 @@ import useOrderStore from "../../stores/OrderStore";
 import { SEACRH_DELAY } from "../../../constants/list";
 import orderService from "../../../services/order.service";
 import useToasterStore from "../../stores/ToasterStore";
+import { removeLocalStorage } from "../../../utils/storage";
 
 const useOrderList = () => {
   const navigation = useNavigation();
   const isReady = navigation.state === "idle";
+
+  const navigate = useNavigate();
 
   const setToaster = useToasterStore((state) => state.setToaster);
 
@@ -91,6 +94,18 @@ const useOrderList = () => {
   } = useMutation({
     mutationFn: changeOrderStatus,
     onError: (error) => {
+      const err = error as any;
+      if (err.status === 401) {
+        removeLocalStorage("auth");
+        setToaster({
+          type: "error",
+          message: "Auth Token Expired, Please Login First.",
+        });
+
+        navigate("/");
+        return;
+      }
+
       setToaster({
         type: "error",
         message: error.message,
