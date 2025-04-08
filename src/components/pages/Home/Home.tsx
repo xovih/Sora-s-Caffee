@@ -1,13 +1,18 @@
-import { Input, Skeleton } from "@heroui/react";
+import { Button, Input, Skeleton } from "@heroui/react";
 import LandingPageLayout from "../../layouts/LandingPageLayout";
 import useHome from "./useHome";
 import { menuItems } from "./Home.constants";
 import { IMenu } from "../../../types/menu";
+import { IReview } from "../../../types/review";
+import ReviewCard from "../../ui/ReviewCard";
 
 const Home = () => {
   const {
     dataMenu,
     isLoadingMenu,
+
+    dataReview,
+    isLoadingReview,
 
     handleClearSearch,
     handleSearch,
@@ -16,7 +21,7 @@ const Home = () => {
   return (
     <LandingPageLayout>
       <main className="flex flex-col items-center px-4 py-20 text-center">
-        <h1 className="mb-4 text-5xl font-bold text-primary">
+        <h1 className="mb-4 text-5xl font-bold text-yellow-950">
           Welcome to Sora's Caffee
         </h1>
         <p className="max-w-md text-lg text-gray-600">
@@ -48,7 +53,7 @@ const Home = () => {
                   />
                   <h3 className="mt-2 text-xl font-bold">{item.name}</h3>
                   <p className="text-gray-600">{item.description}</p>
-                  <p className="mt-2 font-semibold text-primary">
+                  <p className="mt-2 font-semibold text-yellow-950">
                     {item.price}
                   </p>
                 </div>
@@ -64,11 +69,44 @@ const Home = () => {
                 />
                 <h3 className="mt-2 text-xl font-bold">{item.name}</h3>
                 <p className="text-gray-600">{item.description}</p>
-                <p className="mt-2 font-semibold text-primary">
+                <p className="mt-2 font-semibold text-yellow-950">
                   $ {item.price}
                 </p>
               </div>
             ))}
+        </div>
+      </section>
+      <section id="review-section" className="w-full max-w-5xl px-4 py-10">
+        <h2 className="mb-6 text-center text-3xl font-semibold">
+          What Our Customers Say
+        </h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div className="col-span-1 flex flex-wrap justify-center gap-6 sm:col-span-2 md:col-span-3">
+            {isLoadingReview &&
+              menuItems.map((item, index) => (
+                <Skeleton isLoaded={!isLoadingReview} key={index}>
+                  <ReviewCard
+                    name={`${item.name}`}
+                    key={item.name}
+                    rating={0}
+                    comment={""}
+                  />
+                </Skeleton>
+              ))}
+            {dataReview &&
+              dataReview.map((review: IReview) => (
+                <ReviewCard
+                  name={`${review.reviewer_name}`}
+                  key={review.id}
+                  {...review}
+                />
+              ))}
+          </div>
+          <div className="col-span-1 flex flex-wrap justify-center gap-6 sm:col-span-2 md:col-span-3">
+            <Button size="lg" className="bg-yellow-950 text-white">
+              Add Review
+            </Button>
+          </div>
         </div>
       </section>
     </LandingPageLayout>

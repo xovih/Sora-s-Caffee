@@ -82,7 +82,7 @@ const LoginModal = (props: PropTypes) => {
           </ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
+              className="bg-yellow-950/60 text-white"
               variant="flat"
               type="button"
               onPress={onClose}
@@ -90,7 +90,11 @@ const LoginModal = (props: PropTypes) => {
             >
               Batal
             </Button>
-            <Button color="primary" type="submit" disabled={isPendingLogin}>
+            <Button
+              className="bg-yellow-950 text-white"
+              type="submit"
+              disabled={isPendingLogin}
+            >
               {isPendingLogin ? <Spinner size="sm" color="white" /> : "Login"}
             </Button>
           </ModalFooter>

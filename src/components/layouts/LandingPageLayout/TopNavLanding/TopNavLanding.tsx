@@ -43,7 +43,11 @@ const TopNavLanding = (props: PropTypes) => {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="hidden md:flex">
-            <Button radius="none" onPress={onLogin}>
+            <Button
+              radius="none"
+              onPress={onLogin}
+              className="bg-yellow-950 text-white"
+            >
               Login
             </Button>
           </NavbarItem>
@@ -71,7 +75,11 @@ const TopNavLanding = (props: PropTypes) => {
               }}
             />
           ))}
-          <Button radius="none" className="w-full" onPress={onLogin}>
+          <Button
+            radius="none"
+            className="w-full bg-yellow-950 text-white hover:bg-yellow-200"
+            onPress={onLogin}
+          >
             Login
           </Button>
         </div>
