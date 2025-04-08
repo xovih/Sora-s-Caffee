@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigation } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { ChangeEvent } from "react";
@@ -44,13 +45,20 @@ const useOrderList = () => {
     setStatus(e.target.value);
 
   const getOrderList = async () => {
-    const params = `pageSize=${currentLimit}&page=${currentPage}&status=${currentStatus}&search=${currentSearch}`;
-    const res = await orderService.list(params);
+    try {
+      const params = `pageSize=${currentLimit}&page=${currentPage}&status=${currentStatus}&search=${currentSearch}`;
+      const res = await orderService.list(params);
 
-    return {
-      data: res.data.data,
-      paging: res.data.metadata,
-    };
+      return {
+        data: res.data.data,
+        paging: res.data.metadata,
+      };
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        throw new Error("Unauthorized");
+      }
+      throw error;
+    }
   };
 
   const {
@@ -58,6 +66,7 @@ const useOrderList = () => {
     isLoading: isLoadingOrders,
     isRefetching: isRefetchingOrders,
     refetch: refetchOrders,
+    error: errorOrders,
   } = useQuery({
     queryKey: [
       "orders",
@@ -110,6 +119,7 @@ const useOrderList = () => {
     handleSearch,
 
     dataOrders,
+    errorOrders,
     isLoadingOrders,
     isRefetchingOrders,
     refetchOrders,

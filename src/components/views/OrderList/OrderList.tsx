@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Key, ReactNode, useCallback, useEffect, useMemo } from "react";
 import useOrderList from "./useOrderList";
 import {
@@ -14,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import COLUMN_LIST_ORDERS from "./OrderList.constant";
 import DataTable from "../../ui/DataTable";
 import { cn } from "../../../utils/cn";
+import { removeLocalStorage } from "../../../utils/storage";
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -35,6 +38,7 @@ const OrderList = () => {
     handleSearch,
 
     dataOrders,
+    errorOrders,
     refetchOrders,
     isLoadingOrders,
     isRefetchingOrders,
@@ -43,6 +47,13 @@ const OrderList = () => {
     isPendingMutateChangeStatus,
     isSuccessChangeStatus,
   } = useOrderList();
+
+  useEffect(() => {
+    if (errorOrders?.message === "Unauthorized") {
+      removeLocalStorage("auth");
+      navigate("/");
+    }
+  }, [errorOrders]);
 
   const numberedData = useMemo(() => {
     return (dataOrders?.data || []).map((item: any, index: number) => ({

@@ -118,13 +118,13 @@ const ProductCart = () => {
                       <span>{item.name}</span>
                       <div className="flex items-center gap-2">
                         <SmallRoundedButton
-                          onClick={() => increase(item.menuItemId)}
+                          onClick={() => increase(`${item.menuItemId}`)}
                         >
                           +
                         </SmallRoundedButton>
                         <span className="px-2">{item.quantity}</span>
                         <SmallRoundedButton
-                          onClick={() => decrease(item.menuItemId)}
+                          onClick={() => decrease(`${item.menuItemId}`)}
                         >
                           -
                         </SmallRoundedButton>

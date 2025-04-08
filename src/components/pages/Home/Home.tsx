@@ -1,10 +1,11 @@
-import { Button, Input, Skeleton } from "@heroui/react";
+import { Button, Input, Skeleton, useDisclosure } from "@heroui/react";
 import LandingPageLayout from "../../layouts/LandingPageLayout";
 import useHome from "./useHome";
 import { menuItems } from "./Home.constants";
 import { IMenu } from "../../../types/menu";
 import { IReview } from "../../../types/review";
 import ReviewCard from "../../ui/ReviewCard";
+import ReviewModal from "../../views/ReviewModal";
 
 const Home = () => {
   const {
@@ -17,6 +18,8 @@ const Home = () => {
     handleClearSearch,
     handleSearch,
   } = useHome();
+
+  const reviewModal = useDisclosure();
 
   return (
     <LandingPageLayout>
@@ -103,12 +106,18 @@ const Home = () => {
               ))}
           </div>
           <div className="col-span-1 flex flex-wrap justify-center gap-6 sm:col-span-2 md:col-span-3">
-            <Button size="lg" className="bg-yellow-950 text-white">
+            <Button
+              size="lg"
+              className="bg-yellow-950 text-white"
+              type="button"
+              onPress={reviewModal.onOpen}
+            >
               Add Review
             </Button>
           </div>
         </div>
       </section>
+      <ReviewModal {...reviewModal} />
     </LandingPageLayout>
   );
 };

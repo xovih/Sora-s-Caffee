@@ -41,6 +41,7 @@ const LoginModal = (props: PropTypes) => {
       onOpenChange={onOpenChange}
       placement="center"
       scrollBehavior="inside"
+      size="xl"
     >
       <form onSubmit={handleSubmitLogin(handleLogin)}>
         <ModalContent className="m-4">

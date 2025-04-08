@@ -1,5 +1,5 @@
 interface IReview {
-  id: string;
+  id?: string;
   menuItemId?: string;
   reviewerName?: string;
   reviewer_name?: string;
