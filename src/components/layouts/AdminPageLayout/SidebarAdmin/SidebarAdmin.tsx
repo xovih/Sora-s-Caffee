@@ -15,7 +15,7 @@ const SidebarAdmin = () => {
         </div>
         <nav className="mt-6 flex flex-col space-y-4">
           {sidebarMenu.map((item, index) => {
-            const isActive = location.pathname === item.link;
+            const isActive = location.pathname.startsWith(item.link);
             return (
               <Link key={item.link} to={item.link}>
                 <div

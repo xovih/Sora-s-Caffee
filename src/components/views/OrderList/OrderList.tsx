@@ -162,7 +162,9 @@ const OrderList = () => {
                 size="md"
                 isIconOnly
                 className="rounded-full border border-yellow-950 bg-yellow-950/20 text-black hover:bg-yellow-950 hover:text-white"
-                onPress={() => {}}
+                onPress={() => {
+                  navigate(`/order-list/${item.id}`);
+                }}
               >
                 <Search />
               </Button>

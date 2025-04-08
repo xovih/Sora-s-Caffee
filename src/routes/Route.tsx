@@ -3,6 +3,7 @@ import Home from "../components/pages/Home";
 import AdminOrderPage from "../components/pages/Admin/AdminOrderPage";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderListPage from "../components/pages/Admin/OrderListPage/OrderListPage";
+import OrderDetailPage from "../components/pages/Admin/OrderDetailPage";
 
 const routes: RouteObject[] = [
   {
@@ -14,6 +15,14 @@ const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <OrderListPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/order-list/:id",
+    element: (
+      <ProtectedRoute>
+        <OrderDetailPage />
       </ProtectedRoute>
     ),
   },
