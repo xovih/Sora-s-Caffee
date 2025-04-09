@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Spinner } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import useDetailOrder from "./useDetailOrder";
 import { ICart } from "../../../types/orders";
 import { useNavigate } from "react-router-dom";
@@ -29,16 +29,16 @@ const DetailOrder = () => {
     );
 
   return (
-    <div className="w-full px-4 py-6">
+    <div className="w-full">
       <div className="flex items-center justify-between">
         <h1>&nbsp;</h1>
-        <button
-          onClick={() => navigate("/order-list")}
+        <Button
+          onPress={() => navigate("/order-list")}
           type="button"
-          className="rounded-full bg-yellow-950 p-4 text-white hover:bg-yellow-800"
+          className="bg-yellow-950 p-4 text-white hover:bg-yellow-800"
         >
           Back to Orders List
-        </button>
+        </Button>
       </div>
 
       {/* Info */}
