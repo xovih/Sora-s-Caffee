@@ -19,6 +19,7 @@ interface ICart {
     name: string;
     price: number;
   };
+  notes?: string;
   quantity: number;
 }
 
