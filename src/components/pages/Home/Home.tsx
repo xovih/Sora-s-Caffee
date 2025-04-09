@@ -25,7 +25,7 @@ const Home = () => {
     <LandingPageLayout>
       <main className="flex flex-col items-center px-4 py-20 text-center">
         <h1 className="mb-4 text-5xl font-bold text-yellow-950">
-          Welcome to Sora's Caffee
+          Welcome to Sora's Coffee
         </h1>
         <p className="max-w-md text-lg text-gray-600">
           Enjoy the best coffee, tea and delicious meals in a cozy environment.

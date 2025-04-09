@@ -17,6 +17,7 @@ import COLUMN_LIST_ORDERS from "./OrderList.constant";
 import DataTable from "../../ui/DataTable";
 import { cn } from "../../../utils/cn";
 import { removeLocalStorage } from "../../../utils/storage";
+import { ICart } from "../../../types/orders";
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -142,6 +143,13 @@ const OrderList = () => {
       switch (columnKey) {
         case "no":
           return <span className="text-center">{item.no as number}</span>;
+
+        case "items":
+          return (
+            <span className="text-center">
+              {(item.cart as ICart[]).length} items
+            </span>
+          );
 
         case "total":
           return <span className="text-center">$ {item.total as number}</span>;

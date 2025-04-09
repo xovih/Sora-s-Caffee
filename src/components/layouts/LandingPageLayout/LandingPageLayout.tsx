@@ -30,7 +30,7 @@ const LandingPageLayout = (props: PropTypes) => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-      <TopNavLanding brand="Sora's Caffee 🍵" onLogin={loginModal.onOpen} />
+      <TopNavLanding brand="Sora's Coffee 🍵" onLogin={loginModal.onOpen} />
       {children}
       <FooterLanding />
       {toaster.type !== "" && (
