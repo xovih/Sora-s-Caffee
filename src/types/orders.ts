@@ -11,6 +11,14 @@ interface ICartItem {
   total?: number;
 }
 
+interface IMenuItem {
+  id: string;
+  customer_name: string;
+  status: string;
+  table_number: number;
+  total: number;
+  cart?: ICart[];
+}
 interface ICart {
   menuItem: {
     category: string;
@@ -30,4 +38,4 @@ interface IOrder {
   cart?: ICartItem[];
 }
 
-export type { ICartItem, IOrder, ICart };
+export type { ICartItem, IOrder, ICart, IMenuItem };

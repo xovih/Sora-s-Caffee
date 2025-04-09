@@ -17,7 +17,7 @@ import COLUMN_LIST_ORDERS from "./OrderList.constant";
 import DataTable from "../../ui/DataTable";
 import { cn } from "../../../utils/cn";
 import { removeLocalStorage } from "../../../utils/storage";
-import { ICart } from "../../../types/orders";
+import { ICart, IMenuItem } from "../../../types/orders";
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -57,10 +57,12 @@ const OrderList = () => {
   }, [errorOrders]);
 
   const numberedData = useMemo(() => {
-    return (dataOrders?.data || []).map((item: any, index: number) => ({
-      ...item,
-      no: (currentPage - 1) * currentLimit + index + 1,
-    }));
+    return (dataOrders?.data || [])
+      .filter((item: IMenuItem) => item.total > 0)
+      .map((item: IMenuItem, index: number) => ({
+        ...item,
+        no: (currentPage - 1) * currentLimit + index + 1,
+      }));
   }, [dataOrders, currentPage, currentLimit]);
 
   const TopContent = useMemo(() => {
