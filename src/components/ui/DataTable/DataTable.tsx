@@ -74,7 +74,7 @@ const DataTable = (props: PropTypes) => {
         }
       >
         {(item) => (
-          <TableRow key={item.id as Key} aria-labelledby="row">
+          <TableRow key={item.id as Key} aria-label="row">
             {(columnKey) => (
               <TableCell
                 className={cn(

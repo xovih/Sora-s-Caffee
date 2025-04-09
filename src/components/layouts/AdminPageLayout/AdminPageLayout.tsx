@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import useToasterStore, { defaultToaster } from "../../stores/ToasterStore";
 import Toaster from "../../ui/Toaster";
 import SidebarAdmin from "./SidebarAdmin";
+import { Navbar, NavbarMenuToggle } from "@heroui/react";
 
 interface PropTypes {
   children: ReactNode;
@@ -11,6 +12,8 @@ interface PropTypes {
 
 const AdminPageLayout = (props: PropTypes) => {
   const { children, title } = props;
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const toaster = useToasterStore((state) => state.toaster);
   const setToaster = useToasterStore((state) => state.setToaster);
@@ -28,9 +31,22 @@ const AdminPageLayout = (props: PropTypes) => {
   return (
     <div className="max-w-screen-3xl 3xl:container flex bg-gray-50">
       {/* Sidebar */}
-      <SidebarAdmin />
+      <SidebarAdmin isOpen={isOpen} />
 
       <div className="h-screen w-full overflow-y-auto p-8">
+        <Navbar
+          className="block flex justify-between bg-transparent px-0 md:hidden"
+          isBlurred={false}
+          classNames={{ wrapper: "p-0" }}
+          position="static"
+        >
+          <h1 className="text-xl font-bold">Sora's Coffee</h1>
+          <NavbarMenuToggle
+            aria-label={isOpen ? "Close Menu" : "Open Menu"}
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden"
+          />
+        </Navbar>
         <div className="flex flex-col gap-4 p-4">
           {/* Page Title */}
           <h1 className="text-center text-2xl font-bold lg:text-left">

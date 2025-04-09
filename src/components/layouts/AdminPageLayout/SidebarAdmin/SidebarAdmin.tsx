@@ -4,11 +4,25 @@ import { sidebarMenu } from "./Sidebar.constant";
 import { cn } from "../../../../utils/cn";
 import { removeLocalStorage } from "../../../../utils/storage";
 
-const SidebarAdmin = () => {
+interface PropTypes {
+  isOpen: boolean;
+}
+
+const SidebarAdmin = (props: PropTypes) => {
+  const { isOpen } = props;
+
   const location = useLocation();
   const navigate = useNavigate();
+
   return (
-    <div className="relative z-50 flex h-screen w-full max-w-20 translate-x-0 flex-col items-center justify-between bg-gray-100 py-5 transition-all">
+    <div
+      className={cn(
+        "fixed z-50 flex h-screen w-full max-w-20 -translate-x-full flex-col items-center justify-between bg-gray-100 py-5 transition-all md:relative md:translate-x-0",
+        {
+          "translate-x-0": isOpen,
+        },
+      )}
+    >
       <div className="py-6">
         <div className="rounded-full bg-white p-3 shadow-md">
           <img src="/logo.png" alt="Logo" className="h-8 w-8" />
