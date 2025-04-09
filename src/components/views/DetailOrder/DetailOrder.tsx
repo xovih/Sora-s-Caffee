@@ -29,21 +29,21 @@ const DetailOrder = () => {
     );
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between">
-        <h1>&nbsp;</h1>
+    <div className="flex w-full flex-col md:gap-6">
+      <div className="order-3 my-6 flex items-center justify-between md:order-1 md:my-0">
+        <h1 className="hidden md:block">&nbsp;</h1>
         <Button
           onPress={() => navigate("/order-list")}
           type="button"
-          className="bg-yellow-950 p-4 text-white hover:bg-yellow-800"
+          className="w-full bg-yellow-950 p-4 text-white hover:bg-yellow-800 md:w-auto"
         >
           Back to Orders List
         </Button>
       </div>
 
       {/* Info */}
-      <div className="mb-6 mt-4 rounded-xl bg-white p-4 shadow">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="order-1 my-4 rounded-xl bg-white p-4 shadow md:order-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <p className="text-sm text-gray-500">Customer Name</p>
             <p className="text-lg font-medium">{order.customer_name}</p>
@@ -74,9 +74,9 @@ const DetailOrder = () => {
       </div>
 
       {/* Cart */}
-      <div className="rounded-xl bg-white p-4 shadow">
+      <div className="order-2 rounded-xl bg-white p-4 shadow md:order-3">
         <h2 className="mb-4 text-xl font-semibold">Order Items</h2>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-4 p-4 sm:gap-x-4 md:grid-cols-2 md:gap-x-8">
+        <div className="grid grid-cols-1 gap-x-4 gap-y-4 p-4 md:grid-cols-2 md:gap-x-4 md:gap-x-8">
           {order.cart.map((item: ICart, index: number) => (
             <div key={index} className="flex items-center gap-4 border-b pb-4">
               <img

@@ -18,11 +18,14 @@ import DataTable from "../../ui/DataTable";
 import { cn } from "../../../utils/cn";
 import { removeLocalStorage } from "../../../utils/storage";
 import { ICart, IMenuItem } from "../../../types/orders";
+import useToasterStore from "../../stores/ToasterStore";
 
 const OrderList = () => {
   const navigate = useNavigate();
 
   const handleCreateOrder = () => navigate("/order-add");
+
+  const setToaster = useToasterStore((state) => state.setToaster);
 
   const {
     currentLimit,
@@ -57,13 +60,11 @@ const OrderList = () => {
   }, [errorOrders]);
 
   const numberedData = useMemo(() => {
-    return (dataOrders?.data || [])
-      .filter((item: IMenuItem) => item.total > 0)
-      .map((item: IMenuItem, index: number) => ({
-        ...item,
-        no: (currentPage - 1) * currentLimit + index + 1,
-      }));
-  }, [dataOrders, currentPage, currentLimit]);
+    return (dataOrders?.data || []).map((item: IMenuItem, index: number) => ({
+      ...item,
+      no: (currentPage - 1) * currentLimit + index + 1,
+    }));
+  }, [dataOrders]);
 
   const TopContent = useMemo(() => {
     return (
@@ -102,7 +103,13 @@ const OrderList = () => {
         </Button>
       </div>
     );
-  }, [handleChangeLimit, handleSearch, handleClearSearch, handleChangePage]);
+  }, [
+    currentSearch,
+    handleSearch,
+    handleClearSearch,
+    currentStatus,
+    handleFilterStatus,
+  ]);
 
   const BottomContent = useMemo(() => {
     return (
@@ -184,7 +191,18 @@ const OrderList = () => {
                 isIconOnly
                 className="rounded-full border border-yellow-950 bg-yellow-950/20 text-black hover:bg-yellow-950 hover:text-white"
                 onPress={() => {
-                  navigate(`/order-list/${item.id}`);
+                  if ((item.total as number) < 1) {
+                    setToaster({
+                      type: "error",
+                      message: `${item.customer_name}'s order with order number ${item.no} contains invalid items.`,
+                    });
+                  } else {
+                    setToaster({
+                      type: "",
+                      message: "",
+                    });
+                    navigate(`/order-list/${item.id}`);
+                  }
                 }}
               >
                 <Search />
