@@ -105,6 +105,9 @@ const DetailOrder = () => {
                     <p className="text-sm text-gray-500">
                       ${item.menuItem.price}
                     </p>
+                    <p className="text-sm text-yellow-500">
+                      <i>{item.notes}</i>
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-gray-500">Qty</p>

@@ -10,7 +10,7 @@ const SmallRoundedButton = (props: PropTypes) => {
     <button
       type="button"
       onClick={onClick}
-      className="py rounded border border-gray-700 bg-gray-300 px-2"
+      className="py border border-gray-700 bg-gray-300 px-2"
     >
       {children}
     </button>

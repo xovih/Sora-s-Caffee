@@ -6,6 +6,7 @@ interface ICartStore {
   addToCart: (item: ICartItem) => void;
   increaseQty: (menuItemId: string) => void;
   decreaseQty: (menuItemId: string) => void;
+  addNote: (menuItemId: string, note: string) => void;
   clear: () => void;
 }
 
@@ -47,6 +48,17 @@ const useCartStore = create<ICartStore>((set, get) => ({
         .map((cartItem) =>
           cartItem.menuItemId === menuItemId
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem,
+        )
+        .filter((cartItem) => cartItem.quantity > 0),
+    }));
+  },
+  addNote: (menuItemId, note) => {
+    set((state) => ({
+      carts: state.carts
+        .map((cartItem) =>
+          cartItem.menuItemId === menuItemId
+            ? { ...cartItem, notes: note }
             : cartItem,
         )
         .filter((cartItem) => cartItem.quantity > 0),

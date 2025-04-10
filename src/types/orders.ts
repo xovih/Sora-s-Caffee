@@ -3,7 +3,7 @@ import { IMenu } from "./menu";
 interface ICartItem {
   menuItemId?: string;
   quantity: number;
-  notes?: string;
+  notes: string | "";
   price?: number;
   name?: string;
   menuItem?: IMenu;

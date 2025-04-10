@@ -14,8 +14,8 @@ import useCreateOrder from "../useCreateOrder";
 import { Controller } from "react-hook-form";
 import { IOrder } from "../../../../../types/orders";
 import useCartStore from "../../../../stores/CartStore";
-import SmallRoundedButton from "../../../../ui/SmallRoundedButton";
 import { useEffect } from "react";
+import CartItem from "../../../../ui/CartItem";
 
 const ProductCart = () => {
   const {
@@ -31,8 +31,6 @@ const ProductCart = () => {
   } = useCreateOrder();
 
   const carts = useCartStore((state) => state.carts);
-  const increase = useCartStore((state) => state.increaseQty);
-  const decrease = useCartStore((state) => state.decreaseQty);
   const clearCarts = useCartStore((state) => state.clear);
 
   const handleCreateOrder = (data: IOrder) => {
@@ -111,24 +109,8 @@ const ProductCart = () => {
               <div className="rounded-xl bg-white bg-opacity-70 px-3 py-2">
                 <ul>
                   {carts.map((item) => (
-                    <li
-                      key={item.menuItemId}
-                      className="flex items-center justify-between py-2"
-                    >
-                      <span>{item.name}</span>
-                      <div className="flex items-center gap-2">
-                        <SmallRoundedButton
-                          onClick={() => increase(`${item.menuItemId}`)}
-                        >
-                          +
-                        </SmallRoundedButton>
-                        <span className="px-2">{item.quantity}</span>
-                        <SmallRoundedButton
-                          onClick={() => decrease(`${item.menuItemId}`)}
-                        >
-                          -
-                        </SmallRoundedButton>
-                      </div>
+                    <li key={item.menuItemId} className="w-full py-2">
+                      <CartItem item={item} />
                     </li>
                   ))}
                 </ul>
