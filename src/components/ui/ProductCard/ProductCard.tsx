@@ -33,6 +33,7 @@ const ProductCard = (props: PropTypes) => {
                 menuItemId: id,
                 quantity: 1,
                 name,
+                notes: "",
               });
             }}
             className="to-black-900 my-1 bg-yellow-950 font-semibold text-white transition-colors hover:bg-yellow-700"
