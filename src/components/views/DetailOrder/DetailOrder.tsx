@@ -13,9 +13,14 @@ const DetailOrder = () => {
     dataOrderDetail: order,
     isLoadingDetailOrder,
     errorDetailOrder,
+    refetchDetailOrder,
   } = useDetailOrder();
 
-  const { mutateChangeStatus, isPendingMutateChangeStatus } = useOrderList();
+  const {
+    mutateChangeStatus,
+    isPendingMutateChangeStatus,
+    isSuccessChangeStatus,
+  } = useOrderList();
 
   const navigate = useNavigate();
 
@@ -25,6 +30,10 @@ const DetailOrder = () => {
       navigate("/");
     }
   }, [errorDetailOrder]);
+
+  useEffect(() => {
+    refetchDetailOrder();
+  }, [isSuccessChangeStatus]);
 
   if (isLoadingDetailOrder)
     return (

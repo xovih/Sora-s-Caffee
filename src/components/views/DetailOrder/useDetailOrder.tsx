@@ -25,6 +25,7 @@ const useDetailOrder = () => {
     data: dataOrderDetail,
     isLoading: isLoadingDetailOrder,
     error: errorDetailOrder,
+    refetch: refetchDetailOrder,
   } = useQuery({
     queryKey: ["DetailOrder", id],
     queryFn: () => getDetailOrder(id || ""),
@@ -35,6 +36,7 @@ const useDetailOrder = () => {
     dataOrderDetail,
     isLoadingDetailOrder,
     errorDetailOrder,
+    refetchDetailOrder,
   };
 };
 

@@ -11,7 +11,7 @@ import { removeLocalStorage } from "../../../../utils/storage";
 
 const orderSchema = yup.object().shape({
   customerName: yup.string().min(3).required(),
-  tableNumber: yup.number().min(1).max(5).required(),
+  tableNumber: yup.number().min(1).max(10).required(),
 });
 
 const useCreateOrder = () => {
