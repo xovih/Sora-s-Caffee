@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { removeLocalStorage } from "../../../utils/storage";
 import { cn } from "../../../utils/cn";
+import useOrderList from "../OrderList/useOrderList";
 
 const DetailOrder = () => {
   const {
@@ -13,6 +14,9 @@ const DetailOrder = () => {
     isLoadingDetailOrder,
     errorDetailOrder,
   } = useDetailOrder();
+
+  const { mutateChangeStatus, isPendingMutateChangeStatus } = useOrderList();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,13 +48,35 @@ const DetailOrder = () => {
         >
           {!order && "Order not found !"}
         </h1>
-        <Button
-          onPress={() => navigate("/order-list")}
-          type="button"
-          className="w-full bg-yellow-950 p-4 text-white hover:bg-yellow-800 md:w-auto"
-        >
-          Back to Orders List
-        </Button>
+        <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row">
+          {order && order.status !== "COMPLETED" && (
+            <Button
+              onPress={() => mutateChangeStatus(order?.id!)}
+              type="button"
+              isDisabled={isPendingMutateChangeStatus}
+              className="w-full border border-yellow-950 p-4 text-yellow-950 hover:bg-yellow-950 hover:text-white md:w-1/2 md:w-auto"
+            >
+              {isPendingMutateChangeStatus ? (
+                <Spinner color="warning" size="sm" />
+              ) : (
+                "Mark As Complete"
+              )}
+            </Button>
+          )}
+
+          <Button
+            onPress={() => navigate("/order-list")}
+            type="button"
+            isDisabled={isPendingMutateChangeStatus}
+            className="w-full bg-yellow-950 p-4 text-white hover:bg-yellow-700 hover:text-white md:w-1/2 md:w-auto"
+          >
+            {isPendingMutateChangeStatus ? (
+              <Spinner color="warning" size="sm" />
+            ) : (
+              "Back to Orders List"
+            )}
+          </Button>
+        </div>
       </div>
 
       {/* Info */}
