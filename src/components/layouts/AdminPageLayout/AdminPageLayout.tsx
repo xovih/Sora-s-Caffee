@@ -4,6 +4,8 @@ import useToasterStore, { defaultToaster } from "../../stores/ToasterStore";
 import Toaster from "../../ui/Toaster";
 import SidebarAdmin from "./SidebarAdmin";
 import { Navbar, NavbarMenuToggle } from "@heroui/react";
+import { cn } from "../../../utils/cn";
+import useMediaQuery from "./useMediaQuery";
 
 interface PropTypes {
   children: ReactNode;
@@ -14,9 +16,14 @@ const AdminPageLayout = (props: PropTypes) => {
   const { children, title } = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const toaster = useToasterStore((state) => state.toaster);
   const setToaster = useToasterStore((state) => state.setToaster);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [isMobile]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -44,7 +51,7 @@ const AdminPageLayout = (props: PropTypes) => {
           <NavbarMenuToggle
             aria-label={isOpen ? "Close Menu" : "Open Menu"}
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden"
+            className={cn("lg:hidden", { block: isOpen })}
           />
         </Navbar>
         <div className="flex flex-col gap-4 p-4">
